@@ -5,12 +5,58 @@ import { fetchArticles, fetchPublishers } from "../../features/News";
 
 const Authors = () => {
   const { publishers } = useSelector((state) => state.news);
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(true);
+  const [showLeftBtn, setShowLeftBtn] = useState(false);
+  const [showRightBtn, setShowRightBtn] = useState(true);
+  const [scrollPos, setScrollPos] = useState(0);
+  const [containerWidth, setContainerWidth] = useState(0);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPublishers());
   }, []);
-  console.log(publishers);
+
+  useEffect(() => {
+    const container = document.querySelector(".authors");
+    setContainerWidth(container.offsetWidth);
+    const handleScroll = () => {
+      setScrollPos(container.scrollLeft);
+    };
+    container.addEventListener("scroll", handleScroll);
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (scrollPos === 0) {
+      setShowLeftBtn(false);
+    } else {
+      setShowLeftBtn(true);
+    }
+    if (scrollPos + containerWidth >= containerWidth * publishers.length) {
+      setShowRightBtn(false);
+    } else {
+      setShowRightBtn(true);
+    }
+  }, [scrollPos, containerWidth, publishers.length]);
+
+  const handleLeftClick = () => {
+    const container = document.querySelector(".authors");
+    container.scrollBy({
+      left: -containerWidth,
+      behavior: "smooth",
+    });
+  };
+
+  const handleRightClick = () => {
+    const container = document.querySelector(".authors");
+    container.scrollBy({
+      left: containerWidth,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="py-10 ">
       <div className="relative my-5 py-5- border-b-2 ">
@@ -28,8 +74,10 @@ const Authors = () => {
       
       </div>
       <div className="relative">
-      <button className="absolute -top-16 bg-black/20 rounded-full p-2">{show && <FaChevronLeft className="text-lg"/>}</button>
-      <button className="absolute -top-16 right-0 bg-black/20 rounded-full p-2">{show && <FaChevronRight className="text-lg"/>}</button>
+      <button style={{ visibility: showLeftBtn ? "visible" : "hidden" }}
+        onClick={handleLeftClick} className="absolute -top-16 bg-black/20 rounded-full p-2">{show && <FaChevronLeft  className="text-lg"/>}</button>
+      <button style={{ visibility: showRightBtn ? "visible" : "hidden" }}
+        onClick={handleRightClick} className="absolute -top-16 right-0 bg-black/20 rounded-full p-2">{show && <FaChevronRight className="text-lg"/>}</button>
       
       </div>
     </div>
