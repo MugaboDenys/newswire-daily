@@ -13,7 +13,7 @@ const Navbar = () => {
       <div className="flex items-center gap-6">
         {clickedSearch ?
          
-         <input type="text" className="border-b-2 border-emerald-400 outline-none w-[20rem] tracking-[.2rem] placeholder:text-sm px-2 placeholder:text-neutral-400" placeholder="Search..." />     :
+         <input type="text" className="border-b-2 border-emerald-400 outline-none w-[20rem] placeholder:tracking-[.2rem] placeholder:text-sm px-2 placeholder:text-neutral-400" placeholder="Search..." />     :
         ["News","Events","Business", "Markets"].map((link,index)=>(
             <a key={index} href="/" className="text-sm upp tracking-[.2rem] font-semibold duration-200 hover:text-emerald-400">
                 {link}

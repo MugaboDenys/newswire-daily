@@ -11,3 +11,14 @@
   opacity: 1;
   transition: opacity 0.8s ease-in-out;
 }
+
+.authors {
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none; 
+}
+
+.authors::-webkit-scrollbar {
+  display: none;
+}
+

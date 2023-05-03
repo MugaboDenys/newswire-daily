@@ -14,11 +14,11 @@ const store = configureStore({
   }
 })
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  
     <Provider store={store}>
       <Header />
       <Navbar />
       <App />
     </Provider>
-  </StrictMode>
+  
 );
