@@ -13,7 +13,7 @@ const Headlines = () => {
     <div className="">
       <div className="relative my-5 py-5- border-b-2 ">
         <h2 className="text-xl uppercase tracking-[.2rem] font-semibold ">
-          Top articles of the day
+          Top articles of the day..
         </h2>
         <div className="w-32 h-1 mt-5 bg-green-500"> </div>
       </div>
